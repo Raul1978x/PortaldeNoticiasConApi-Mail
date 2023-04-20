@@ -1,7 +1,7 @@
 package com.egg.noticias.controladores;
 
 import com.egg.noticias.entidades.Usuario;
-import com.egg.noticias.entidades.WeatherData;
+//import com.egg.noticias.entidades.WeatherData;
 import com.egg.noticias.excepciones.MiExcepcion;
 import com.egg.noticias.servicios.NoticiaServicio;
 import com.egg.noticias.servicios.UsuarioServicio;
@@ -38,7 +38,7 @@ public class InicioControlador {
     @GetMapping("")
     public String home(HttpSession session, ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         model.addAttribute("noticias", noticiaServicio.listarNoticias());
         return "mostrar";
     }
@@ -46,7 +46,7 @@ public class InicioControlador {
     @GetMapping("/registrar")
     public String registrar(ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         return "registro.html";
     }
 
@@ -56,7 +56,7 @@ public class InicioControlador {
             @RequestParam String password, @RequestParam String password2, 
             ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         try {
             usuarioServicio.registrar(archivo, nombre, email, password, password2);
             model.put("exito", "Usuario Registrado");
@@ -75,7 +75,7 @@ public class InicioControlador {
     @GetMapping("/login")
     public String login(@RequestParam(required = false) String error, ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         if (error  != null) {
             model.put("error", "Usuario o contraseña incorrecto!!");
         }
@@ -85,7 +85,7 @@ public class InicioControlador {
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/perfil")
     public String perfil(ModelMap model, HttpSession session){
-        getWeatherData(model);
+//        getWeatherData(model);
                 
         Usuario usuario = (Usuario) session.getAttribute("usuariosession");
         model.put("usuario", usuario);
@@ -98,7 +98,7 @@ public class InicioControlador {
             @PathVariable String nombre,@PathVariable String email, 
             @PathVariable String password, @PathVariable String password2, 
             ModelMap model){
-        getWeatherData(model);
+//        getWeatherData(model);
                 
         try {
             usuarioServicio.actualizar(archivo, password2, nombre, email, password, password2);
@@ -117,15 +117,15 @@ public class InicioControlador {
         model.addAttribute("fecha", date);
     }
     
-    public void getWeatherData(ModelMap model) {
-        WeatherData weatherData = weatherServicio.getWeatherData();
-
-        double temperature = weatherData.getData().get(0).getTemp();
-        String description = weatherData.getData().get(0).getWeather().getDescription();
-        String iconUrl = weatherData.getData().get(0).getWeather().getIconUrl();
-
-        model.put("temperature", temperature);
-        model.put("description", description);
-        model.put("iconUrl", iconUrl);
-    }
+//    public void getWeatherData(ModelMap model) {
+//        WeatherData weatherData = weatherServicio.getWeatherData();
+//
+//        double temperature = weatherData.getData().get(0).getTemp();
+//        String description = weatherData.getData().get(0).getWeather().getDescription();
+//        String iconUrl = weatherData.getData().get(0).getWeather().getIconUrl();
+//
+//        model.put("temperature", temperature);
+//        model.put("description", description);
+//        model.put("iconUrl", iconUrl);
+//    }
 }

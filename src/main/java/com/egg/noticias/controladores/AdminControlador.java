@@ -2,7 +2,7 @@ package com.egg.noticias.controladores;
 
 import com.egg.noticias.entidades.Noticia;
 import com.egg.noticias.entidades.Usuario;
-import com.egg.noticias.entidades.WeatherData;
+//import com.egg.noticias.entidades.WeatherData;
 import com.egg.noticias.excepciones.MiExcepcion;
 import com.egg.noticias.servicios.BusinessService;
 import com.egg.noticias.servicios.NoticiaServicio;
@@ -42,7 +42,7 @@ public class AdminControlador {
     @GetMapping("/dashboard")
     public String homeAdmin(HttpSession session, ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         model.addAttribute("noticias", noticiaServicio.listarNoticias());
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         model.addAttribute("logueado", logueado.getNombre());
@@ -52,7 +52,7 @@ public class AdminControlador {
     @GetMapping("/cargar")
     public String noticia(ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         return "noticiaForm";
     }
 
@@ -62,7 +62,7 @@ public class AdminControlador {
             @RequestParam String bajada, ModelMap model)
             throws MiExcepcion {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         try {
             List<Noticia> noticias = noticiaServicio.listarNoticias();
             model.put("noticias", noticias);
@@ -80,7 +80,7 @@ public class AdminControlador {
 
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable String id, ModelMap model) {
-        getWeatherData(model);
+//        getWeatherData(model);
         mostrarFecha(model);
         Noticia noticia = noticiaServicio.buscarNoticiaPorId(id);
         model.put("noticia", noticia);
@@ -91,7 +91,7 @@ public class AdminControlador {
     public String editaNoticia(@RequestParam String id, @RequestParam String titulo, 
             @RequestParam String bajada, @RequestParam String cuerpo, ModelMap modelo, 
             MultipartFile archivo) throws MiExcepcion {
-        getWeatherData(modelo);
+//        getWeatherData(modelo);
         mostrarFecha(modelo);
         try {
             noticiaServicio.actualizar(archivo, id, titulo, cuerpo, bajada);
@@ -106,7 +106,7 @@ public class AdminControlador {
 
     @GetMapping("/eliminar/{id}")
     public String eliminarPorId(@PathVariable String id, ModelMap model) {
-        getWeatherData(model);
+//        getWeatherData(model);
         List<Noticia> noticias = noticiaServicio.listarNoticias();
         model.put("noticias", noticias);
         noticiaServicio.eliminarPorId(id);
@@ -116,7 +116,7 @@ public class AdminControlador {
     @GetMapping("/mostrar/{id}")
     public String modificar(@PathVariable String id, HttpSession session, ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         Noticia noticia = noticiaServicio.buscarNoticiaPorId(id);
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         model.addAttribute("logueado", logueado.getNombre());
@@ -128,7 +128,7 @@ public class AdminControlador {
     @GetMapping("/usuarios")
     public String mostrarUsuarios(ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         List<Usuario> usuarios = usuarioServicio.usuarios();
         model.put("usuarios", usuarios);
 
@@ -137,7 +137,7 @@ public class AdminControlador {
 
     @GetMapping("/editarUsuario/{id}")
     public String editarUsuario(@PathVariable String id, ModelMap model) throws MiExcepcion {
-        getWeatherData(model);
+//        getWeatherData(model);
         Usuario usuario = usuarioServicio.getOne(id);
         model.put("usuario", usuario);
         return "registro_editar";
@@ -148,7 +148,7 @@ public class AdminControlador {
             @RequestParam String nombre, @RequestParam String email,
             @RequestParam String password, @RequestParam String password2,
             ModelMap model, HttpSession session) throws MiExcepcion {
-        getWeatherData(model);
+//        getWeatherData(model);
         usuarioServicio.actualizar(archivo, id, nombre, email, password, password2);
         model.put("exito", "el usuario se actualizo correctamente!!");
         return "redirect:/admin/usuarios";
@@ -175,7 +175,7 @@ public class AdminControlador {
     @GetMapping("/registrar")
     public String registrar(ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         return "registro.html";
     }
 
@@ -185,7 +185,7 @@ public class AdminControlador {
             @RequestParam String password, @RequestParam String password2,
             ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         try {
             usuarioServicio.registrar(archivo, nombre, email, password, password2);
             model.put("exito", "Usuario Registrado");
@@ -206,17 +206,17 @@ public class AdminControlador {
         model.addAttribute("fecha", date);
     }
 
-    public void getWeatherData(ModelMap model) {
-        WeatherData weatherData = weatherServicio.getWeatherData();
-
-        double temperature = weatherData.getData().get(0).getTemp();
-        String description = weatherData.getData().get(0).getWeather().getDescription();
-        String iconUrl = weatherData.getData().get(0).getWeather().getIconUrl();
-
-        model.put("temperature", temperature);
-        model.put("description", description);
-        model.put("iconUrl", iconUrl);
-    }
+//    public void getWeatherData(ModelMap model) {
+//        WeatherData weatherData = weatherServicio.getWeatherData();
+//
+//        double temperature = weatherData.getData().get(0).getTemp();
+//        String description = weatherData.getData().get(0).getWeather().getDescription();
+//        String iconUrl = weatherData.getData().get(0).getWeather().getIconUrl();
+//
+//        model.put("temperature", temperature);
+//        model.put("description", description);
+//        model.put("iconUrl", iconUrl);
+//    }
 
 //    Envio de Email
     @Autowired
@@ -225,7 +225,7 @@ public class AdminControlador {
     @GetMapping("/enviarEmail/{id}")
     public String sendEmail(@PathVariable String id, HttpSession session,ModelMap modelo) {
         mostrarFecha(modelo);
-        getWeatherData(modelo);
+//        getWeatherData(modelo);
         Usuario usuario = usuarioServicio.getOne(id);
         modelo.put("usuario", usuario);
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
@@ -236,7 +236,7 @@ public class AdminControlador {
     @PostMapping("/envioEmail/{id}")
     public String sendEmail2(@RequestParam(required = false) String email, @RequestParam String titulo, @RequestParam String textarea, @PathVariable(required = false) String id, ModelMap modelo) {
         mostrarFecha(modelo);
-        getWeatherData(modelo);
+//        getWeatherData(modelo);
         try {
             emailService.sendEmail(email, titulo, textarea, id);
             Usuario usuario = usuarioServicio.getOne(id);
@@ -246,7 +246,7 @@ public class AdminControlador {
             return "redirect:/admin/usuarios";
         } catch (Exception ex) {
             modelo.put("error", ex.getMessage());
-            return "redirect:/enviarEmail/{id}";
+            return "redirect:/admin/enviarEmail/{id}";
         }
     }
 }

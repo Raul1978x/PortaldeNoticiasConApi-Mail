@@ -2,7 +2,7 @@ package com.egg.noticias.controladores;
 
 import com.egg.noticias.entidades.Noticia;
 import com.egg.noticias.entidades.Usuario;
-import com.egg.noticias.entidades.WeatherData;
+//import com.egg.noticias.entidades.WeatherData;
 import com.egg.noticias.servicios.NoticiaServicio;
 import com.egg.noticias.servicios.UsuarioServicio;
 import com.egg.noticias.servicios.WeatherServicio;
@@ -40,7 +40,7 @@ public class UserControlador {
     @GetMapping("")
     public String usuarioHome(HttpSession session, ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         model.addAttribute("noticias", noticiaServicio.listarNoticias());
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         model.addAttribute("logueado", logueado.getNombre());
@@ -54,7 +54,7 @@ public class UserControlador {
     @GetMapping("/mostrar/{id}")
     public String noticiaLeer(@PathVariable String id,HttpSession session, ModelMap model) {
         mostrarFecha(model);
-        getWeatherData(model);
+//        getWeatherData(model);
         Noticia noticia = noticiaServicio.buscarNoticiaPorId(id);
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
         model.addAttribute("logueado", logueado.getNombre());
@@ -68,15 +68,15 @@ public class UserControlador {
         model.addAttribute("fecha", date);
     }
     
-     public void getWeatherData(ModelMap model) {
-        WeatherData weatherData = weatherServicio.getWeatherData();
-
-        double temperature = weatherData.getData().get(0).getTemp();
-        String description = weatherData.getData().get(0).getWeather().getDescription();
-        String iconUrl = weatherData.getData().get(0).getWeather().getIconUrl();
-
-        model.put("temperature", temperature);
-        model.put("description", description);
-        model.put("iconUrl", iconUrl);
-    }
+//     public void getWeatherData(ModelMap model) {
+//        WeatherData weatherData = weatherServicio.getWeatherData();
+//
+//        double temperature = weatherData.getData().get(0).getTemp();
+//        String description = weatherData.getData().get(0).getWeather().getDescription();
+//        String iconUrl = weatherData.getData().get(0).getWeather().getIconUrl();
+//
+//        model.put("temperature", temperature);
+//        model.put("description", description);
+//        model.put("iconUrl", iconUrl);
+//    }
 }
